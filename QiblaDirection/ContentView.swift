@@ -9,11 +9,55 @@ struct ContentView: View {
         NavigationView {
             ZStack {
                 backgroundGradient
-                
-                VStack(spacing: 20) {
+
+                VStack {
+                    // 1) Top debug header (only in DEBUG builds)
+                    #if DEBUG
                     debugInfoSection
-                    mainContent
+                        .padding(.top) // respects the safe‐area
+                    #endif
+
+                    Spacer() // pushes compass into vertical center
+
+                    // 2) Compass (or loading / initial / denied states)
+                    if let location = viewModel.currentLocation,
+                       let qiblaDirection = viewModel.qiblaDirection {
+                        ZStack {
+                            CompassView(
+                                qiblaDirection: qiblaDirection,
+                                deviceHeading: viewModel.deviceHeading
+                            )
+                            .frame(width: 300, height: 300) // fixed size avoids overlap
+                            
+                            if !viewModel.isHeadingAccurate {
+                                CalibrationPromptView()
+                            }
+                        }
+                    } else if viewModel.isLoading {
+                        loadingView
+                    } else if viewModel.authorizationStatus == .denied {
+                        LocationDeniedView()
+                    } else {
+                        InitialStateView(action: viewModel.requestLocationAndFetchQibla)
+                    }
+
+                    Spacer() // pushes info panel down
+
+                    // 3) Bottom info panel
+                    if let location = viewModel.currentLocation,
+                       let qiblaDirection = viewModel.qiblaDirection {
+                        InformationPanelView(
+                            qiblaDirection: qiblaDirection,
+                            deviceHeading: viewModel.deviceHeading,
+                            location: location
+                        )
+                        .padding(.horizontal)
+                        .padding(.bottom)
+                    }
+
+                    // 4) Errors at very bottom
                     errorSection
+                        .padding(.bottom, 20)
                 }
             }
             .navigationTitle("Qibla Compass")
@@ -25,7 +69,7 @@ struct ContentView: View {
         }
     }
     
-    // MARK: - View Components
+    // MARK: - Subviews & Helpers
     
     private var backgroundGradient: some View {
         LinearGradient(
@@ -38,50 +82,12 @@ struct ContentView: View {
     
     @ViewBuilder
     private var debugInfoSection: some View {
-        #if DEBUG
         DebugInfoView(
             authStatus: viewModel.authorizationStatus.rawValue.description,
             location: viewModel.currentLocation,
             heading: viewModel.deviceHeading,
             isHeadingAccurate: viewModel.isHeadingAccurate
         )
-        #endif
-    }
-    
-    @ViewBuilder
-    private var mainContent: some View {
-        if let location = viewModel.currentLocation,
-           let qiblaDirection = viewModel.qiblaDirection {
-            compassSection(location: location, qiblaDirection: qiblaDirection)
-        } else if viewModel.isLoading {
-            loadingView
-        } else if viewModel.authorizationStatus == .denied {
-            LocationDeniedView()
-        } else {
-            InitialStateView(action: viewModel.requestLocationAndFetchQibla)
-        }
-    }
-    
-    private func compassSection(location: CLLocationCoordinate2D, qiblaDirection: Double) -> some View {
-        ZStack {
-            VStack {
-                CompassView(
-                    qiblaDirection: qiblaDirection,
-                    deviceHeading: viewModel.deviceHeading
-                )
-                .padding()
-                
-                InformationPanelView(
-                    qiblaDirection: qiblaDirection,
-                    deviceHeading: viewModel.deviceHeading,
-                    location: location
-                )
-            }
-
-            if !viewModel.isHeadingAccurate {
-                CalibrationPromptView()
-            }
-        }
     }
     
     private var loadingView: some View {
@@ -97,7 +103,6 @@ struct ContentView: View {
             if let error = viewModel.error {
                 ErrorView(message: error, icon: "wifi.exclamationmark")
             }
-            
             if let error = viewModel.locationError {
                 ErrorView(message: error, icon: "location.slash")
             }
