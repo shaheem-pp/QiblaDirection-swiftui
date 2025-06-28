@@ -27,6 +27,17 @@
 		3A3844B82E106A2E00249F42 /* QiblaDirection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QiblaDirection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A3844C52E106A3000249F42 /* QiblaDirectionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QiblaDirectionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A3844CF2E106A3000249F42 /* QiblaDirectionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QiblaDirectionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A3844E42E106C6500249F42 /* Qibla.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiblaDirection/Models/Qibla.swift; sourceTree = "<group>"; };
+		3A3844E52E106C6500249F42 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiblaDirection/Services/LocationManager.swift; sourceTree = "<group>"; };
+		3A3844E62E106C6500249F42 /* QiblaAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiblaDirection/Services/QiblaAPIService.swift; sourceTree = "<group>"; };
+		3A3844E72E106C6500249F42 /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiblaDirection/Views/CompassView.swift; sourceTree = "<group>"; };
+		3A3844E82E106C6500249F42 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiblaDirection/Views/ErrorView.swift; sourceTree = "<group>"; };
+		3A3844E92E106C6500249F42 /* DebugInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiblaDirection/Views/DebugInfoView.swift; sourceTree = "<group>"; };
+		3A3844EA2E106C6500249F42 /* InformationPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiblaDirection/Views/InformationPanelView.swift; sourceTree = "<group>"; };
+		3A3844EB2E106C6500249F42 /* LocationDeniedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiblaDirection/Views/LocationDeniedView.swift; sourceTree = "<group>"; };
+		3A3844EC2E106C6500249F42 /* InitialStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiblaDirection/Views/InitialStateView.swift; sourceTree = "<group>"; };
+		3A3844ED2E106C6500249F42 /* CalibrationPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiblaDirection/Views/CalibrationPromptView.swift; sourceTree = "<group>"; };
+		3A3844EE2E106C6500249F42 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiblaDirection/ViewModels/ContentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
